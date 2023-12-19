@@ -216,8 +216,8 @@ class ItemScrollController {
   /// * 0 aligns the left edge of the item with the left edge of the view
   /// * 1 aligns the left edge of the item with the right edge of the view.
   /// * 0.5 aligns the left edge of the item with the center of the view.
-  void jumpTo({required int index, double alignment = 0}) {
-    _scrollableListState!._jumpTo(index: index, alignment: alignment);
+  void jumpTo({required int index, double alignment = 0, double offset = 0}) {
+    _scrollableListState!._jumpTo(index: index, alignment: alignment, offset: offset);
   }
 
   /// Animate the list over [duration] using the given [curve] such that the
@@ -488,13 +488,13 @@ class _ScrollablePositionedListState extends State<ScrollablePositionedList>
         widget.minCacheExtent ?? 0,
       );
 
-  void _jumpTo({required int index, required double alignment}) {
+  void _jumpTo({required int index, required double alignment, double offset = 0}) {
     _stopScroll(canceled: true);
     if (index > widget.itemCount - 1) {
       index = widget.itemCount - 1;
     }
     setState(() {
-      primary.scrollController.jumpTo(0);
+      primary.scrollController.jumpTo(offset);
       primary.target = index;
       primary.alignment = alignment;
     });
