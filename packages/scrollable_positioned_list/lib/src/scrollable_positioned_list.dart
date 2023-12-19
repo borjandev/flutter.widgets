@@ -220,6 +220,30 @@ class ItemScrollController {
     _scrollableListState!._jumpTo(index: index, alignment: alignment, offset: offset);
   }
 
+    /// Returns the current [scrollController.offset].
+  /// Also see [jumpToPixel].
+  double get currentScrollControllerOffset {
+    return _scrollableListState!.primary.scrollController.offset;
+  }
+
+  
+  /// Immediately jump the list to the provided [value] via [scrollController.jumpTo].
+  /// Also see [currentScrollControllerOffset].
+  void jumpToPixel(double value) {
+    _scrollableListState!.primary.scrollController.jumpTo(value);
+  }
+
+  /// Calls [primary.scrollController.animateTo] with the given values.
+  /// See [currentScrollControllerOffset] to get the current offset.
+  void scrollToPixel({
+    required double offset,
+    required Duration duration,
+    required Curve curve,
+  }) {
+    _scrollableListState!.primary.scrollController
+        .animateTo(offset, duration: duration, curve: curve);
+  }
+
   /// Animate the list over [duration] using the given [curve] such that the
   /// item at [index] ends up with its leading edge at the given [alignment].
   /// See [jumpTo] for an explanation of alignment.
